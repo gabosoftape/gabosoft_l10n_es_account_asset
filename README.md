@@ -1,1 +1,0 @@
-gabosoft_l10n_es_account_asset
