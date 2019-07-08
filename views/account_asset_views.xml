@@ -5,21 +5,21 @@
         <field name="name">account.asset.category.form</field>
         <field name="model">account.asset.category</field>
         <field name="arch" type="xml">
-            <form string="Asset category">
+            <form string="Categoria de Activos">
                 <sheet>
                     <group>
                         <div class="oe_title">
-                            <label for="name" string="Asset Type" class="oe_edit_only" attrs="{'invisible': [('type','!=','purchase')]}"/>
-                            <label for="name" string="Deferred Revenue Type" class="oe_edit_only" attrs="{'invisible': [('type','==','purchase')]}"/>
+                            <label for="name" string="Tipo de Activo" class="oe_edit_only" attrs="{'invisible': [('type','!=','purchase')]}"/>
+                            <label for="name" string="Tipo de ingresos diferidos" class="oe_edit_only" attrs="{'invisible': [('type','==','purchase')]}"/>
                             <h1>
-                                <field name="name" placeholder="e.g. Computers"/>
+                                <field name="name" placeholder="e.g. Computadores"/>
                             </h1>
                         </div>
                         <group>
                             <field name="type" attrs="{'invisible': 1}"/>
                             <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
                         </group>
-                        <group string="Journal Entries">
+                        <group string="Entradas de diario">
                             <field name="journal_id"/>
                             <div>
                                 <label for="account_asset_id"
@@ -51,22 +51,22 @@
                             <field name="account_analytic_id" groups="analytic.group_analytic_accounting"/>
                             <field name="analytic_tag_ids" groups="analytic.group_analytic_accounting" widget="many2many_tags"/>
                         </group>
-                        <group string="Periodicity">
-                            <field name="method_time" string="Time Method Based On" widget="radio" attrs="{'invisible': [('type','!=','purchase')]}"/>
-                            <field name="method_number" string="Number of Entries" attrs="{'invisible':['|',('method_time','!=','number'),'&amp;',('type','=', False)], 'required':[('method_time','=','number')]}"/>
-                            <label for="method_period" string="One Entry Every"/>
+                        <group string="Periodicidad">
+                            <field name="method_time" string="Método de tiempo basado en" widget="radio" attrs="{'invisible': [('type','!=','purchase')]}"/>
+                            <field name="method_number" string="Número de entradas" attrs="{'invisible':['|',('method_time','!=','number'),'&amp;',('type','=', False)], 'required':[('method_time','=','number')]}"/>
+                            <label for="method_period" string="Una entrada cada"/>
                             <div>
                                 <field name="method_period" nolabel="1" attrs="{'invisible': [('type','=', False)]}" class="oe_inline"/>
-                                months
+                                meses
                             </div>
                             <field name="method_end" attrs="{'required': [('method_time','=','end')], 'invisible':[('method_time','!=','end')]}"/>
                         </group>
-                        <group string="Additional Options">
+                        <group string="Opciones Adicionales">
                             <field name="open_asset"/>
                             <field name="group_entries"/>
                             <field name="date_first_depreciation"/>
                         </group>
-                        <group attrs="{'invisible': [('type','=','sale')]}" string="Depreciation Method">
+                        <group attrs="{'invisible': [('type','=','sale')]}" string="Método de depreciación">
                             <field name="method" widget="radio"/>
                             <field name="method_progress_factor" attrs="{'invisible':[('method','=','linear')], 'required':[('method','=','degressive')]}"/>
                             <field name="prorata" attrs="{'invisible': [('method_time','=','end')]}"/>
@@ -108,7 +108,7 @@
         <field name="name">account.asset.category.tree</field>
         <field name="model">account.asset.category</field>
         <field name="arch" type="xml">
-            <tree string="Asset category">
+            <tree string="Categoría de activo">
                 <field name="name"/>
                 <field name="journal_id"/>
                 <field name="method"/>
@@ -121,7 +121,7 @@
         <field name="name">account.asset.category.search</field>
         <field name="model">account.asset.category</field>
         <field name="arch" type="xml">
-            <search string="Search Asset Category">
+            <search string="Buscar Categoría de activo">
                 <filter string="Sales" name="sales" domain="[('type','=', 'sale')]" help="Deferred Revenues"/>
                 <filter string="Purchase" name="purchase" domain="[('type','=', 'purchase')]" help="Assets"/>
                 <field name="name" string="Category"/>
@@ -137,7 +137,7 @@
         <field name="name">account.asset.asset.form</field>
         <field name="model">account.asset.asset</field>
         <field name="arch" type="xml">
-            <form string="Asset">
+            <form string="Activo">
                 <header>
                     <button name="validate" states="draft" string="Confirm" type="object" class="oe_highlight"/>
                     <button type="object" name="compute_depreciation_board" string="Compute Depreciation" states="draft"/>
@@ -160,7 +160,7 @@
                     </div>
                     <group>
                         <group>
-                            <field name="category_id" string="Asset Category" domain="[('type', '=', 'purchase')]" context="{'default_type': 'purchase'}" help="Category of asset"/>
+                            <field name="category_id" string="Categoría de activo" domain="[('type', '=', 'purchase')]" context="{'default_type': 'purchase'}" help="Category of asset"/>
                             <field name="code"/>
                             <field name="date" help="Date of asset"/>
                             <field name="date_first_depreciation"/>
@@ -181,9 +181,9 @@
                         </group>
                     </group>
                     <notebook colspan="4">
-                        <page string="Depreciation Board">
+                        <page string="Tabla de depreciación">
                             <field name="depreciation_line_ids" mode="tree" options="{'reload_whole_on_button': true}">
-                                <tree string="Depreciation Lines" decoration-info="(move_check == False)" create="false">
+                                <tree string="Lineas de depreciación" decoration-info="(move_check == False)" create="false">
                                     <field name="depreciation_date"/>
                                     <field name="amount" widget="monetary" string="Depreciation"/>
                                     <field name="depreciated_value" readonly="1"/>
@@ -192,7 +192,7 @@
                                     <field name="move_posted_check" invisible="1"/>
                                     <field name="parent_state" invisible="1"/>
                                 </tree>
-                                <form string="Depreciation Lines" create="false">
+                                <form string="Lineas de depreciación" create="false">
                                     <group>
                                         <group>
                                             <field name="parent_state" invisible="1"/>
@@ -212,7 +212,7 @@
                                 </form>
                             </field>
                         </page>
-                        <page string="Depreciation Information">
+                        <page string="Informacion de depreciación">
                             <group>
                                 <field name="method" widget="radio" attrs="{'invisible': [('type','=','sale')]}"/>
                                 <field name="method_progress_factor" attrs="{'invisible':[('method','=','linear')], 'required':[('method','=','degressive')]}"/>
@@ -278,7 +278,7 @@
         <field name="arch" type="xml">
             <tree string="Activos" decoration-info="(state == 'draft')" decoration-muted="(state == 'close')">
                 <field name="name"/>
-                <field name="category_id" string="Asset Category"/>
+                <field name="category_id" string="Categoría de Activo"/>
                 <field name="date"/>
                 <field name="partner_id" string="Vendor"/>
                 <field name="value"/>
@@ -294,16 +294,16 @@
         <field name="name">account.asset.asset.search</field>
         <field name="model">account.asset.asset</field>
         <field name="arch" type="xml">
-            <search string="Asset Account">
-                <field name="name" string="Asset"/>
+            <search string="Cuenta de Activos">
+                <field name="name" string="Activo"/>
                 <field name="date"/>
-                <filter string="Current" name="current" domain="[('state','in', ('draft','open'))]" help="Assets in draft and open states"/>
-                <filter string="Closed" name="closed" domain="[('state','=', 'close')]" help="Assets in closed state"/>
-                <field name="category_id" string="Asset Category"/>
+                <filter string="Corriente" name="current" domain="[('state','in', ('draft','open'))]" help="Assets in draft and open states"/>
+                <filter string="Cerrado" name="closed" domain="[('state','=', 'close')]" help="Assets in closed state"/>
+                <field name="category_id" string="Categoría de Activo"/>
                 <field name="partner_id" filter_domain="[('partner_id','child_of',self)]"/>
-                <group expand="0" string="Group By...">
-                        <filter string="Date" name="month" domain="[]" context="{'group_by':'date'}"/>
-                        <filter string="Asset Category" name="category" domain="[]" context="{'group_by':'category_id'}"/>
+                <group expand="0" string="Agrupar por...">
+                        <filter string="Fecha" name="month" domain="[]" context="{'group_by':'date'}"/>
+                        <filter string="Categoría de Activo" name="category" domain="[]" context="{'group_by':'category_id'}"/>
                 </group>
             </search>
         </field>
@@ -312,7 +312,7 @@
 
 
     <record model="ir.actions.act_window" id="action_account_asset_asset_form">
-        <field name="name">Assets</field>
+        <field name="name">Activos</field>
         <field name="res_model">account.asset.asset</field>
         <field name="view_type">form</field>
         <field name="view_mode">tree,kanban,form</field>
@@ -325,10 +325,10 @@
 
     <!-- Configuration -->
 
-    <menuitem id="menu_finance_config_assets" name="Assets and Revenues" parent="account.menu_finance_configuration" sequence="25"/>
+    <menuitem id="menu_finance_config_assets" name="Activos e Ingresos" parent="account.menu_finance_configuration" sequence="25"/>
 
     <record model="ir.actions.act_window" id="action_account_asset_asset_list_normal_purchase">
-        <field name="name">Asset Types</field>
+        <field name="name">Tipos de Activos</field>
         <field name="res_model">account.asset.category</field>
         <field name="domain">[('type', '=', 'purchase')]</field>
         <field name="view_type">form</field>
